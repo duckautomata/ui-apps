@@ -1,0 +1,10 @@
+# SPA Routing for React Apps
+/archived-transcript/* /archived-transcript/index.html  200
+/dokimotes/* /dokimotes/index.html                      200
+/dokisnake/* /dokisnake/index.html                      200
+/live-transcript/* /live-transcript/index.html          200
+/simple-text/* /simple-text/index.html                  200
+
+# 404 Fallback
+# If a file isn't found and doesn't match the React SPAs above, serve the 404 page
+/* /404.html                                            404

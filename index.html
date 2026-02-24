@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Duck Site</title>
+    <meta name="title" content="Duck Site">
+    <meta name="description" content="A central hub for all Dragoon websites made by Duck Automata.">
+    <meta name="theme-color" content="#1E6654"> <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.duck-automata.com/">
+    <meta property="og:title" content="Duck Site">
+    <meta property="og:description" content="A central hub for all Dragoon websites made by Duck Automata.">
+    <meta property="og:image" content="https://www.duck-automata.com/images/site_preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.duck-automata.com/">
+    <meta property="twitter:title" content="Duck Site">
+    <meta property="twitter:description" content="A central hub for all Dragoon websites made by Duck Automata.">
+    <meta property="twitter:image" content="https://www.duck-automata.com/images/site_preview.png">
+
+    <style>
+        /* --- 1. CSS Variables (Theme Colors & Images) --- */
+        :root {
+            /* Light Theme (Default) */
+            --bg-color: #f0f2f5;
+            --card-bg-color: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-tertiary: #718096;
+            --border-color: #edf2f7;
+            --accent-color: #4299e1;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --shadow-hover-color: rgba(0, 0, 0, 0.12);
+            --lightbox-bg: rgba(0, 0, 0, 0.9);
+            --lightbox-close: #f1f1f1;
+            --toggle-bg: #cbd5e0;
+            --toggle-fg: #ffffff;
+            --toggle-icon: #f6e05e; /* Sun */
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-color: #1a202c;
+            --card-bg-color: #2d3748;
+            --text-primary: #edf2f7;
+            --text-secondary: #a0aec0;
+            --text-tertiary: #718096;
+            --border-color: #4a5568;
+            --accent-color: #4299e1;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --shadow-hover-color: rgba(0, 0, 0, 0.3);
+            --toggle-bg: #4a5568;
+            --toggle-fg: #1a202c;
+            --toggle-icon: #76E4F7; /* Moon */
+        }
+
+        /* --- 2. Basic Page Styles --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-secondary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .hub-description {
+            text-align: center;
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-top: 0;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- 3. Theme Toggle Switch --- */
+        .theme-switch-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .theme-switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+        .theme-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--toggle-bg); transition: 0.3s; border-radius: 28px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: var(--toggle-fg); transition: 0.3s; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--toggle-icon); }
+        input:not(:checked) + .slider:before { content: "☀️"; }
+        input:checked + .slider:before { content: "🌙"; }
+        input:checked + .slider { background-color: var(--toggle-bg); }
+        input:checked + .slider:before { transform: translateX(22px); color: var(--toggle-icon); }
+
+
+        /* --- 4. Site Grid Layout --- */
+        #site-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- 5. Site Card Styles (Using Variables) --- */
+        .site-card {
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .site-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px var(--shadow-hover-color);
+        }
+
+        .site-card .display-image-link {
+            display: block;
+            height: 200px;
+            background-color: var(--border-color);
+            background-image: var(--light-image); /* Default to light image */
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 { margin: 0 0 10px 0; font-size: 1.4rem; }
+        .card-content h3 a { text-decoration: none; color: var(--text-primary); transition: color 0.2s ease; }
+        .card-content h3 a:hover { color: var(--accent-color); }
+        .card-content .description { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; flex-grow: 1; margin-bottom: 16px; }
+        .card-content .examples-label { font-size: 0.8rem; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 8px; }
+
+        .example-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .example-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: opacity 0.2s ease, border-color 0.3s ease;
+            background-image: var(--light-image); /* Default to light image */
+            background-size: cover;
+            background-position: center;
+        }
+        .example-thumb:hover {
+            opacity: 0.8;
+        }
+
+        /* This rule now specifically overrides the image for dark mode */
+        [data-theme="dark"] .display-image-link,
+        [data-theme="dark"] .example-thumb {
+            background-image: var(--dark-image);
+        }
+
+        /* --- 6. Lightbox Modal Styles (Using Variables) --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding: 20px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: var(--lightbox-bg);
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: var(--lightbox-close);
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .lightbox-close:hover,
+        .lightbox-close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        (function() {
+            let theme = 'light';
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                theme = savedTheme;
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                theme = 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="theme-toggle" title="Toggle theme">
+            <input type="checkbox" id="theme-toggle" />
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <h1>Duck Automata Websites</h1>
+    <p class="hub-description">
+        A central hub for all the websites I made for my fellow Dragoons.
+    </p>
+
+    <main id="site-grid"></main>
+
+    <div id="lightbox-modal" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <script>
+        // =================================================================
+        // E D I T  T H I S  L I S T  T O  A D D  O R  C H A N G E  S I T E S
+        // =================================================================
+        
+        const sites = [
+            {
+                title: "Archived-Transcripts",
+                url: "./archived-transcript/",
+                description: "Search and view transcripts of a livestream! Use the site to: Search for where something was said. Graph word usage over time. And more.",
+                displayImageLight: "./images/archivedtranscript-main-light.png",
+                displayImageDark: "./images/archivedtranscript-main-dark.png",
+                exampleImages: [
+                    { light: "./images/archivedtranscript-ex1-light.png", dark: "./images/archivedtranscript-ex1-dark.png" },
+                ]
+            },
+            {
+                title: "Dokimotes",
+                url: "./dokimotes/",
+                description: "An archive of Dokibird's emotes to search through and use.",
+                displayImageLight: "./images/dokimotes-main-light.png",
+                displayImageDark: "./images/dokimotes-main-dark.png",
+                exampleImages: [
+                    { light: "./images/dokimotes-ex1-light.png", dark: "./images/dokimotes-ex1-dark.png" },
+                    { light: "./images/dokimotes-ex2-light.png", dark: "./images/dokimotes-ex2-dark.png" },
+                ]
+            },
+            {
+                title: "Live-Transcripts",
+                url: "./live-transcript/",
+                description: "View the transcript of an active or previously active livestream in near real-time! Use the site to: View what was said in the event you missed it or didn't hear it correctly. Playback and download audio segments for each transcribed line. Graph word usage over time. And much more.",
+                displayImageLight: "./images/livetranscript-main-light.png",
+                displayImageDark: "./images/livetranscript-main-dark.png",
+                exampleImages: [
+                    { light: "./images/livetranscript-ex1-light.png", dark: "./images/livetranscript-ex1-dark.png" },
+                ]
+            },
+            {
+                title: "Dokisnake",
+                url: "./dokisnake/",
+                description: "It's snake. But with Dokibird's long neck trying to feed DAD some chicken.",
+                displayImageLight: "./images/dokisnake-main.png",
+                displayImageDark: "./images/dokisnake-main.png",
+                exampleImages: [
+                    { light: "./images/dokisnake-example1.png", dark: "./images/dokisnake-example1.png" },
+                    { light: "./images/dokisnake-example2.png", dark: "./images/dokisnake-example2.png" },
+                ]
+            },
+        ];
+
+        // =================================================================
+        // (No need to edit below this line)
+        // =================================================================
+
+        // --- Lightbox Functions ---
+        function openLightbox(imgSrcLight, imgSrcDark) {
+            const modal = document.getElementById('lightbox-modal');
+            const modalImg = document.getElementById('lightbox-img');
+            if (modal && modalImg) {
+                // Store both paths for theme switching
+                modalImg.setAttribute('data-light-src', imgSrcLight);
+                modalImg.setAttribute('data-dark-src', imgSrcDark);
+                
+                // Set the correct initial image
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                modalImg.src = (currentTheme === 'dark') ? imgSrcDark : imgSrcLight;
+                
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            const modalImg = document.getElementById('lightbox-img');
+            if (modal && modalImg) {
+                modal.style.display = 'none';
+                modalImg.src = ''; // Stop loading/playing
+                // Clear attributes
+                modalImg.removeAttribute('data-light-src');
+                modalImg.removeAttribute('data-dark-src');
+            }
+        }
+
+        /**
+         * This function runs when the page loads.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Setup Theme Toggle Logic ---
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    themeToggle.checked = true;
+                }
+                
+                themeToggle.addEventListener('change', function() {
+                    const newTheme = this.checked ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                    
+                    const modalImg = document.getElementById('lightbox-img');
+                    if (modalImg && modalImg.hasAttribute('data-light-src')) {
+                        modalImg.src = modalImg.getAttribute(newTheme === 'dark' ? 'data-dark-src' : 'data-light-src');
+                    }
+                });
+            }
+
+            // --- 2. Setup Lightbox Close Events ---
+            const modal = document.getElementById('lightbox-modal');
+            const closeBtn = document.querySelector('.lightbox-close');
+            
+            if (modal && closeBtn) {
+                closeBtn.onclick = closeLightbox;
+                modal.onclick = function(event) {
+                    if (event.target === modal) {
+                        closeLightbox();
+                    }
+                }
+            }
+
+            // --- 3. Build Site Cards ---
+            const grid = document.getElementById('site-grid');
+            if (!grid) return;
+
+            sites.forEach(site => {
+                // 1. Create the example images HTML
+                let exampleImagesHTML = '';
+                if (site.exampleImages && site.exampleImages.length > 0) {
+                    exampleImagesHTML += `<div class="examples-label">Examples</div>`;
+                    exampleImagesHTML += `<div class="example-images">`;
+                    
+                    site.exampleImages.forEach(img => {
+                        const thumbStyle = `style="--light-image: url('${img.light}'); --dark-image: url('${img.dark}');"`;
+                        const clickHandler = `onclick="openLightbox('${img.light}', '${img.dark}')"`;
+                        exampleImagesHTML += `<div class="example-thumb" ${thumbStyle} ${clickHandler} role="button" aria-label="View example image"></div>`;
+                    });
+                    exampleImagesHTML += `</div>`;
+                }
+
+                // 2. Create the inline style for the main display image
+                const displayLinkStyle = `style="--light-image: url('${site.displayImageLight}'); --dark-image: url('${site.displayImageDark}');"`;
+
+                // 3. Create the full HTML for the card
+                const cardHTML = `
+                    <article class="site-card">
+                        <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="display-image-link" ${displayLinkStyle}>
+                            </a>
+                        <div class="card-content">
+                            <h3>
+                                <a href="${site.url}" target="_blank" rel="noopener noreferrer">${site.title}</a>
+                            </h3>
+                            <p class="description">${site.description || ''}</p>
+                            ${exampleImagesHTML}
+                        </div>
+                    </article>
+                `;
+
+                // 4. Add the new card's HTML to the grid
+                grid.innerHTML += cardHTML;
+            });
+        });
+    </script>
+
+</body>
+</html>

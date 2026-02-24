@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>404 Not Found - Duck Site</title>
+    <meta name="theme-color" content="#1E6654">
+    
+    <script>
+        (function() {
+            let theme = 'light';
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                theme = savedTheme;
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                theme = 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    <style>
+        /* --- EXACT MATCH OF CSS VARIABLES FROM HOMEPAGE --- */
+        :root {
+            --bg-color: #f0f2f5;
+            --card-bg-color: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-tertiary: #718096;
+            --border-color: #edf2f7;
+            --accent-color: #4299e1;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --shadow-hover-color: rgba(0, 0, 0, 0.12);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a202c;
+            --card-bg-color: #2d3748;
+            --text-primary: #edf2f7;
+            --text-secondary: #a0aec0;
+            --text-tertiary: #718096;
+            --border-color: #4a5568;
+            --accent-color: #4299e1;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --shadow-hover-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- 404 SPECIFIC STYLING --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-secondary);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .error-container {
+            text-align: center;
+            background-color: var(--card-bg-color);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .error-code {
+            font-size: 6rem;
+            margin: 0;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--accent-color);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 10px 0;
+            color: var(--text-primary);
+        }
+
+        p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: var(--accent-color);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            /* Slightly darken the accent color on hover */
+            background-color: #3182ce; 
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1 class="error-code">404</h1>
+        <h2>Page Not Found</h2>
+        <p>The page you're looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+        <a href="/" class="button">Return to Hub</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# 1. Default Cache: 10 minutes (600 seconds) for HTML and non-static assets
+/*
+  Cache-Control: public, max-age=600
+
+# 2. Static Assets Cache: 7 days (604800 seconds) for your asset folders
+/*/assets/*
+  Cache-Control: public, max-age=604800
+/images/*
+  Cache-Control: public, max-age=604800
+
+# 3. Never Cache specific configuration and version files
+/*/config.js
+  Cache-Control: no-store, no-cache, must-revalidate
+/*/version.json
+  Cache-Control: no-store, no-cache, must-revalidate

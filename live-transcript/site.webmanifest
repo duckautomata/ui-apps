@@ -1,0 +1,28 @@
+{
+    "name": "Live Transcript",
+    "short_name": "Live Text",
+    "description": "Search, view, and graph transcripts for an active stream in realtime.",
+    "start_url": "/live-transcript/",
+    "scope": "/live-transcript/",
+    "icons": [
+        {
+            "src": "/live-transcript/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/live-transcript/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/live-transcript/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "theme_color": "#20a79a",
+    "background_color": "#121212",
+    "display": "standalone"
+}
